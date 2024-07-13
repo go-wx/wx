@@ -18,6 +18,11 @@ type TempUnit struct {
 	string
 }
 
+// String returns the string representation of the temperature unit.
+func (u TempUnit) String() string {
+	return u.string
+}
+
 // Temperature units.
 var (
 	Celsius    = TempUnit{"C"}
