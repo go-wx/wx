@@ -65,3 +65,8 @@ func (t *TempF) ToK() TempK {
 func (t *TempF) ToR() TempR {
 	return TempR{t.R()}
 }
+
+// Units returns the temperature units.
+func (t *TempF) Units() TempUnit {
+	return Fahrenheit
+}

@@ -272,6 +272,13 @@ func TestTempF_ToR(t *testing.T) {
 	}
 }
 
+func TestTempF_Units(t *testing.T) {
+	tf := TempF{}
+	if tf.Units() != Fahrenheit {
+		t.Fatalf("expected %v, got %v", Fahrenheit, tf.Units())
+	}
+}
+
 func BenchmarkTempF_C(b *testing.B) {
 	b.SetParallelism(runtime.NumCPU())
 	tf := TempF{}
@@ -384,6 +391,14 @@ func BenchmarkTempF_ToR(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		_ = tf.ToR()
+	}
+}
+
+func BenchmarkTempF_Units(b *testing.B) {
+	b.SetParallelism(runtime.NumCPU())
+	tf := TempF{}
+	for i := 0; i < b.N; i++ {
+		_ = tf.Units()
 	}
 }
 
