@@ -1,5 +1,7 @@
 package wx
 
+import "fmt"
+
 const (
 	TempZeroCKelvin = 273.15
 )
@@ -10,32 +12,31 @@ type TempC struct {
 }
 
 // C returns the temperature in Celsius.
-func (t TempC) C() float64 {
+func (t *TempC) C() float64 {
 	return t.measurement
 }
 
 // F returns the temperature in Fahrenheit.
-func (t TempC) F() float64 {
+func (t *TempC) F() float64 {
 	return t.measurement*TempFactorCtoF + TempFreezingF
 }
 
 // K returns the temperature in Kelvin.
-func (t TempC) K() float64 {
+func (t *TempC) K() float64 {
 	return t.measurement + TempZeroCKelvin
 }
 
 // R returns the temperature in Rankine.
-func (t TempC) R() float64 {
+func (t *TempC) R() float64 {
 	return t.F() + 459.67
 }
 
 // Set creates a new temperature measurement in Celsius.
-func (t TempC) Set(measurement float64) error {
-	if measurement < -TempZeroCKelvin {
-		return NewWxErr(errTempMustBeZeroOrGreater, "TempC.New")
-	}
-
+func (t *TempC) Set(measurement float64) error {
 	t.measurement = measurement
+	if t.K() < 0 {
+		return NewWxErr(fmt.Sprintf("temperature %v°C is below absolute zero kelvin", t.C()), "TempC.Set")
+	}
 
 	return nil
 }
@@ -43,26 +44,26 @@ func (t TempC) Set(measurement float64) error {
 // Temperature conversion methods.
 
 // ToC returns the temperature in Celsius.
-func (t TempC) ToC() TempC {
-	return t
+func (t *TempC) ToC() TempC {
+	return TempC{t.measurement}
 }
 
 // ToF converts the temperature to Fahrenheit.
-func (t TempC) ToF() TempF {
+func (t *TempC) ToF() TempF {
 	return TempF{t.F()}
 }
 
 // ToK converts the temperature to Kelvin.
-func (t TempC) ToK() TempK {
+func (t *TempC) ToK() TempK {
 	return TempK{t.K()}
 }
 
 // ToR converts the temperature to Rankine.
-func (t TempC) ToR() TempR {
+func (t *TempC) ToR() TempR {
 	return TempR{t.R()}
 }
 
 // Units returns celsius.
-func (t TempC) Units() TempUnit {
+func (t *TempC) Units() TempUnit {
 	return Celsius
 }

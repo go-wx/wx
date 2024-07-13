@@ -2,6 +2,7 @@ package wx
 
 import (
 	"fmt"
+	"github.com/go-wx/wx/internal/tests"
 	"runtime"
 	"testing"
 )
@@ -57,7 +58,7 @@ func TestTempF_F(t *testing.T) {
 				t.Fatalf("unexpected error: %v", err)
 			}
 
-			if !closeEnough(tf.F(), tc.expected, tolerance) {
+			if !tests.CloseEnough(tf.F(), tc.expected, tolerance) {
 				t.Errorf("expected %v, got %v", tc.expected, tf.F())
 			}
 		})
@@ -85,7 +86,7 @@ func TestTempF_K(t *testing.T) {
 				t.Fatalf("unexpected error: %v", err)
 			}
 
-			if !closeEnough(tf.K(), tc.expected, tolerance) {
+			if !tests.CloseEnough(tf.K(), tc.expected, tolerance) {
 				t.Fatalf("expected %v, got %v", tc.expected, tf.K())
 			}
 		})
@@ -114,7 +115,7 @@ func TestTempF_R(t *testing.T) {
 				t.Fatalf("unexpected error: %v", err)
 			}
 
-			if !closeEnough(tf.R(), tc.expected, tolerance) {
+			if !tests.CloseEnough(tf.R(), tc.expected, tolerance) {
 				t.Fatalf("expected %v, got %v", tc.expected, tf.R())
 			}
 		})
@@ -177,7 +178,7 @@ func TestTempF_ToC(t *testing.T) {
 			}
 
 			tcC := TempC{tc.expected}
-			if !closeEnough(tf.ToC().measurement, tcC.measurement, tolerance) {
+			if !tests.CloseEnough(tf.ToC().measurement, tcC.measurement, tolerance) {
 				t.Fatalf("expected %v, got %v", tcC, tf.ToC())
 			}
 		})
@@ -206,7 +207,7 @@ func TestTempF_ToF(t *testing.T) {
 			}
 
 			tcF := TempF{tc.expected}
-			if !closeEnough(tf.ToF().measurement, tcF.measurement, tolerance) {
+			if !tests.CloseEnough(tf.ToF().measurement, tcF.measurement, tolerance) {
 				t.Fatalf("expected %v, got %v", tcF, tf.ToF())
 			}
 		})
@@ -235,7 +236,7 @@ func TestTempF_ToK(t *testing.T) {
 			}
 
 			tcK := TempK{tc.expected}
-			if !closeEnough(tf.ToK().measurement, tcK.measurement, tolerance) {
+			if !tests.CloseEnough(tf.ToK().measurement, tcK.measurement, tolerance) {
 				t.Fatalf("expected %v, got %v", tcK, tf.ToK())
 			}
 		})
@@ -265,7 +266,7 @@ func TestTempF_ToR(t *testing.T) {
 			}
 
 			tcR := TempR{tc.expected}
-			if !closeEnough(tf.ToR().measurement, tcR.measurement, tolerance) {
+			if !tests.CloseEnough(tf.ToR().measurement, tcR.measurement, tolerance) {
 				t.Fatalf("expected %v, got %v", tcR, tf.ToR())
 			}
 		})
@@ -400,9 +401,4 @@ func BenchmarkTempF_Units(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_ = tf.Units()
 	}
-}
-
-// closeEnough returns true if a is within tolerance of b.
-func closeEnough(a, b, tolerance float64) bool {
-	return a >= b-tolerance && a <= b+tolerance
 }
