@@ -279,6 +279,10 @@ func TestTempK_Units(t *testing.T) {
 	}
 }
 
+func TestTempK_Temp(t *testing.T) {
+	var _ Temp = &TempK{}
+}
+
 func BenchmarkTempK_C(b *testing.B) {
 	tk := TempK{}
 	if err := tk.Set(100); err != nil {

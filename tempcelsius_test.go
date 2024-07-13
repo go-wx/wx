@@ -227,6 +227,10 @@ func TestTempC_Units(t *testing.T) {
 	}
 }
 
+func TestTempC_Temp(t *testing.T) {
+	var _ Temp = &TempC{}
+}
+
 func BenchmarkTempC_C(b *testing.B) {
 	c := TempC{
 		measurement: 100,

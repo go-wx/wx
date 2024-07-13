@@ -274,6 +274,10 @@ func TestTempF_Units(t *testing.T) {
 	}
 }
 
+func TestTempF_Temp(t *testing.T) {
+	var _ Temp = &TempF{}
+}
+
 func BenchmarkTempF_C(b *testing.B) {
 	tf := TempF{}
 	err := tf.Set(100)

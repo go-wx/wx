@@ -262,6 +262,10 @@ func TestTempR_Units(t *testing.T) {
 	}
 }
 
+func TestTempR_Temp(t *testing.T) {
+	var _ Temp = &TempR{}
+}
+
 func BenchmarkTempR_C(b *testing.B) {
 	tr := TempR{}
 	if err := tr.Set(558.87); err != nil {
