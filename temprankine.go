@@ -12,12 +12,12 @@ type TempR struct {
 
 // C returns the temperature in Celsius.
 func (t *TempR) C() float64 {
-	return (t.measurement - TempAbsoluteZeroRF) * TempFactorFtoC
+	return (t.measurement - 491.67) * TempFactorFtoC
 }
 
 // F returns the temperature in Fahrenheit.
 func (t *TempR) F() float64 {
-	return t.measurement - TempAbsoluteZeroRF
+	return t.measurement + TempAbsoluteZeroRF
 }
 
 // K returns the temperature in Kelvin.
