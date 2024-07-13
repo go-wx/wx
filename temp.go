@@ -13,10 +13,6 @@ type Temp interface {
 	Units() TempUnit
 }
 
-const (
-	errTempMustBeZeroOrGreater = "temperature must be zero or greater"
-)
-
 // TempUnit is a type for temperature units.
 type TempUnit struct {
 	string
