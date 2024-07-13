@@ -1,9 +1,7 @@
 package wx
 
 import (
-	"fmt"
 	"github.com/go-wx/wx/internal/tests"
-	"runtime"
 	"testing"
 )
 
@@ -124,23 +122,23 @@ func TestTempF_R(t *testing.T) {
 
 func TestTempF_Set(t *testing.T) {
 	tt := []struct {
+		name     string
 		value    float64
 		expected float64
 		err      bool
 	}{
-		{0, 0, false},
-		{32, 32, false},
-		{100, 100, false},
-		{-100, -100, false},
-		{0.0, 0.0, false},
-		{32.0, 32.0, false},
-		{100.0, 100.0, false},
-		{-500.0, -500.0, true},
+		{"0°F", 0, 0, false},
+		{"32°F", 32, 32, false},
+		{"100°F", 100, 100, false},
+		{"-100°F", -100, -100, false},
+		{"0.0°F", 0.0, 0.0, false},
+		{"32.0°F", 32.0, 32.0, false},
+		{"-459.67°F", -459.67, -459.67, false},
+		{"-500°F", -500, -500, true},
 	}
 
 	for _, tc := range tt {
-		t.Run(fmt.Sprintf("%v", tc.value), func(t *testing.T) {
-			t.Parallel()
+		t.Run(tc.name, func(t *testing.T) {
 			tf := TempF{}
 			err := tf.Set(tc.value)
 			if tc.err && err == nil {
@@ -171,7 +169,6 @@ func TestTempF_ToC(t *testing.T) {
 
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			t.Parallel()
 			tf := TempF{}
 			if err := tf.Set(tc.value); err != nil {
 				t.Fatalf("unexpected error: %v", err)
@@ -200,7 +197,6 @@ func TestTempF_ToF(t *testing.T) {
 
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			t.Parallel()
 			tf := TempF{}
 			if err := tf.Set(tc.value); err != nil {
 				t.Fatalf("unexpected error: %v", err)
@@ -229,7 +225,6 @@ func TestTempF_ToK(t *testing.T) {
 
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			t.Parallel()
 			tf := TempF{}
 			if err := tf.Set(tc.value); err != nil {
 				t.Fatalf("unexpected error: %v", err)
@@ -259,7 +254,6 @@ func TestTempF_ToR(t *testing.T) {
 
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			t.Parallel()
 			tf := TempF{}
 			if err := tf.Set(tc.value); err != nil {
 				t.Fatalf("unexpected error: %v", err)
@@ -281,7 +275,6 @@ func TestTempF_Units(t *testing.T) {
 }
 
 func BenchmarkTempF_C(b *testing.B) {
-	b.SetParallelism(runtime.NumCPU())
 	tf := TempF{}
 	err := tf.Set(100)
 	if err != nil {
@@ -294,7 +287,6 @@ func BenchmarkTempF_C(b *testing.B) {
 }
 
 func BenchmarkTempF_F(b *testing.B) {
-	b.SetParallelism(runtime.NumCPU())
 	tf := TempF{}
 	err := tf.Set(100)
 	if err != nil {
@@ -307,7 +299,6 @@ func BenchmarkTempF_F(b *testing.B) {
 }
 
 func BenchmarkTempF_K(b *testing.B) {
-	b.SetParallelism(runtime.NumCPU())
 	tf := TempF{}
 	err := tf.Set(100)
 	if err != nil {
@@ -320,7 +311,6 @@ func BenchmarkTempF_K(b *testing.B) {
 }
 
 func BenchmarkTempF_R(b *testing.B) {
-	b.SetParallelism(runtime.NumCPU())
 	tf := TempF{}
 	err := tf.Set(100)
 	if err != nil {
@@ -333,7 +323,6 @@ func BenchmarkTempF_R(b *testing.B) {
 }
 
 func BenchmarkTempF_Set(b *testing.B) {
-	b.SetParallelism(runtime.NumCPU())
 	tf := TempF{}
 	for i := 0; i < b.N; i++ {
 		err := tf.Set(100)
@@ -344,7 +333,6 @@ func BenchmarkTempF_Set(b *testing.B) {
 }
 
 func BenchmarkTempF_ToC(b *testing.B) {
-	b.SetParallelism(runtime.NumCPU())
 	tf := TempF{}
 	err := tf.Set(100)
 	if err != nil {
@@ -357,7 +345,6 @@ func BenchmarkTempF_ToC(b *testing.B) {
 }
 
 func BenchmarkTempF_ToF(b *testing.B) {
-	b.SetParallelism(runtime.NumCPU())
 	tf := TempF{}
 	err := tf.Set(100)
 	if err != nil {
@@ -370,7 +357,6 @@ func BenchmarkTempF_ToF(b *testing.B) {
 }
 
 func BenchmarkTempF_ToK(b *testing.B) {
-	b.SetParallelism(runtime.NumCPU())
 	tf := TempF{}
 	err := tf.Set(100)
 	if err != nil {
@@ -383,7 +369,6 @@ func BenchmarkTempF_ToK(b *testing.B) {
 }
 
 func BenchmarkTempF_ToR(b *testing.B) {
-	b.SetParallelism(runtime.NumCPU())
 	tf := TempF{}
 	err := tf.Set(100)
 	if err != nil {
@@ -396,7 +381,6 @@ func BenchmarkTempF_ToR(b *testing.B) {
 }
 
 func BenchmarkTempF_Units(b *testing.B) {
-	b.SetParallelism(runtime.NumCPU())
 	tf := TempF{}
 	for i := 0; i < b.N; i++ {
 		_ = tf.Units()
