@@ -11,6 +11,7 @@ type Temp interface {
 	ToK() TempK
 	ToR() TempR
 	Units() TempUnit
+	Valid() bool
 }
 
 // TempUnit is a type for temperature units.

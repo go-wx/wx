@@ -9,6 +9,7 @@ const (
 // TempC is a temperature measurement in Celsius.
 type TempC struct {
 	measurement float64
+	valid       bool
 }
 
 // C returns the temperature in Celsius.
@@ -38,6 +39,8 @@ func (t *TempC) Set(measurement float64) error {
 		return NewWxErr(fmt.Sprintf("temperature %v°C is below absolute zero kelvin", t.C()), "TempC.Set")
 	}
 
+	t.valid = true
+
 	return nil
 }
 
@@ -45,7 +48,14 @@ func (t *TempC) Set(measurement float64) error {
 
 // ToC returns the temperature in Celsius.
 func (t *TempC) ToC() TempC {
-	return TempC{t.measurement}
+	if !t.valid {
+		return TempC{}
+	}
+
+	return TempC{
+		measurement: t.measurement,
+		valid:       t.valid,
+	}
 }
 
 // ToF converts the temperature to Fahrenheit.
@@ -66,4 +76,9 @@ func (t *TempC) ToR() TempR {
 // Units returns celsius.
 func (t *TempC) Units() TempUnit {
 	return Celsius
+}
+
+// Valid returns true if the temperature is valid.
+func (t *TempC) Valid() bool {
+	return t.valid
 }

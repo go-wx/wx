@@ -8,6 +8,7 @@ package wx
 // TempK is a temperature measurement in Kelvin.
 type TempK struct {
 	measurement float64
+	valid       bool
 }
 
 // C returns the temperature in Celsius.
@@ -54,7 +55,10 @@ func (t *TempK) ToF() TempF {
 
 // ToK returns the temperature in Kelvin.
 func (t *TempK) ToK() TempK {
-	return TempK{t.K()}
+	return TempK{
+		measurement: t.measurement,
+		valid:       t.valid,
+	}
 }
 
 // ToR converts the temperature to Rankine.
@@ -65,4 +69,9 @@ func (t *TempK) ToR() TempR {
 // Units returns kelvin.
 func (t *TempK) Units() TempUnit {
 	return Kelvin
+}
+
+// Valid returns true if the temperature is valid.
+func (t *TempK) Valid() bool {
+	return t.valid
 }
