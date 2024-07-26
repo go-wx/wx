@@ -115,12 +115,12 @@ type PressureKPa struct {
 
 // HPa returns the pressure in hectopascals.
 func (p *PressureKPa) HPa() float64 {
-	return p.measurement
+	return p.measurement * 10
 }
 
 // InHg returns the pressure in inches of mercury.
 func (p *PressureKPa) InHg() float64 {
-	return p.measurement * 0.295299830714
+	return p.measurement * 10 / conversionFactorInHgToHPa
 }
 
 // KPa returns the pressure in kilopascals.
@@ -140,7 +140,7 @@ func (p *PressureKPa) Pa() float64 {
 
 // Psi returns the pressure in pounds per square inch.
 func (p *PressureKPa) Psi() float64 {
-	return p.measurement * 0.14503773773
+	return p.measurement * 1000 / conversionFactorPsiToPa
 }
 
 // Set sets the pressure.
@@ -312,7 +312,7 @@ func (p *PressurePa) ToPsi() PressurePsi {
 
 // Units return the units of the pressure.
 func (p *PressurePa) Units() PressureUnit {
-	return HPa
+	return Pa
 }
 
 // Valid returns true if the pressure is valid.
