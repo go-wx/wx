@@ -15,7 +15,7 @@ func (p *PressureHPa) HPa() float64 {
 
 // InHg returns the pressure in inches of mercury.
 func (p *PressureHPa) InHg() float64 {
-	return p.measurement * 0.0295299830714
+	return p.measurement / conversionFactorInHgToHPa
 }
 
 // Mb returns the pressure in millibars.
@@ -35,7 +35,7 @@ func (p *PressureHPa) Pa() float64 {
 
 // Psi returns the pressure in pounds per square inch.
 func (p *PressureHPa) Psi() float64 {
-	return p.measurement * 0.014503773773
+	return p.measurement * 100 / conversionFactorPsiToPa
 }
 
 // Set sets the pressure.
