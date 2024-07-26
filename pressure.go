@@ -13,6 +13,11 @@ var (
 	Psi  = PressureUnit{"psi"}
 )
 
+const (
+	// ErrPressureNegative is returned when negative pressure is set.
+	ErrPressureNegative = "pressure cannot be negative"
+)
+
 // Pressure is an interface for pressure types.
 type Pressure interface {
 	// HPa returns the pressure in hPa.
@@ -34,22 +39,22 @@ type Pressure interface {
 	Set(measurement float64) error
 
 	// ToHPa returns the pressure in hPa.
-	ToHPa() float64
+	ToHPa() PressureHPa
 
 	// ToInHg returns the pressure in inches of mercury.
-	ToInHg() float64
+	ToInHg() PressureInHg
 
 	// ToMb returns the pressure in millibars.
-	ToMb() float64
+	ToMb() PressureMb
 
 	// ToKPa returns the pressure in kilopascals.
-	ToKPa() float64
+	ToKPa() PressureKPa
 
 	// ToPsi returns the pressure in pounds per square inch.
-	ToPsi() float64
+	ToPsi() PressurePsi
 
 	// Units return the units of the pressure.
-	Units() string
+	Units() PressureUnit
 
 	// Valid returns true if the pressure is valid.
 	Valid() bool

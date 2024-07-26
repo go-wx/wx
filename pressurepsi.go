@@ -2,38 +2,39 @@ package wx
 
 import "fmt"
 
-type PressureMb struct {
+// PressurePsi is a type for pressure in pounds per square inch.
+type PressurePsi struct {
 	measurement float64
 	valid       bool
 }
 
 // HPa returns the pressure in hPa.
-func (p *PressureMb) HPa() float64 {
-	return p.measurement
+func (p *PressurePsi) HPa() float64 {
+	return p.measurement * 68.947572932
 }
 
 // InHg returns the pressure in inches of mercury.
-func (p *PressureMb) InHg() float64 {
-	return p.measurement / 33.863886666667
+func (p *PressurePsi) InHg() float64 {
+	return p.measurement * 2.036020247
 }
 
 // Mb returns the pressure in millibars.
-func (p *PressureMb) Mb() float64 {
-	return p.measurement
+func (p *PressurePsi) Mb() float64 {
+	return p.measurement * 68.947572932
 }
 
 // KPa returns the pressure in kilopascals.
-func (p *PressureMb) KPa() float64 {
-	return p.measurement / 1000
+func (p *PressurePsi) KPa() float64 {
+	return p.measurement * 6.8947572932
 }
 
 // Psi returns the pressure in pounds per square inch.
-func (p *PressureMb) Psi() float64 {
-	return p.measurement / 68.947572932
+func (p *PressurePsi) Psi() float64 {
+	return p.measurement
 }
 
 // Set sets the pressure.
-func (p *PressureMb) Set(measurement float64) error {
+func (p *PressurePsi) Set(measurement float64) error {
 	if measurement < 0 {
 		p.valid = false
 		return fmt.Errorf(ErrPressureNegative)
@@ -45,7 +46,7 @@ func (p *PressureMb) Set(measurement float64) error {
 }
 
 // ToHPa returns the pressure in hPa.
-func (p *PressureMb) ToHPa() PressureHPa {
+func (p *PressurePsi) ToHPa() PressureHPa {
 	return PressureHPa{
 		measurement: p.HPa(),
 		valid:       p.valid,
@@ -53,7 +54,7 @@ func (p *PressureMb) ToHPa() PressureHPa {
 }
 
 // ToInHg returns the pressure in inches of mercury.
-func (p *PressureMb) ToInHg() PressureInHg {
+func (p *PressurePsi) ToInHg() PressureInHg {
 	return PressureInHg{
 		measurement: p.InHg(),
 		valid:       p.valid,
@@ -61,15 +62,15 @@ func (p *PressureMb) ToInHg() PressureInHg {
 }
 
 // ToMb returns the pressure in millibars.
-func (p *PressureMb) ToMb() PressureMb {
+func (p *PressurePsi) ToMb() PressureMb {
 	return PressureMb{
-		measurement: p.measurement,
+		measurement: p.Mb(),
 		valid:       p.valid,
 	}
 }
 
 // ToKPa returns the pressure in kilopascals.
-func (p *PressureMb) ToKPa() PressureKPa {
+func (p *PressurePsi) ToKPa() PressureKPa {
 	return PressureKPa{
 		measurement: p.KPa(),
 		valid:       p.valid,
@@ -77,19 +78,19 @@ func (p *PressureMb) ToKPa() PressureKPa {
 }
 
 // ToPsi returns the pressure in pounds per square inch.
-func (p *PressureMb) ToPsi() PressurePsi {
+func (p *PressurePsi) ToPsi() PressurePsi {
 	return PressurePsi{
-		measurement: p.Psi(),
+		measurement: p.measurement,
 		valid:       p.valid,
 	}
 }
 
-// Units return the units of the pressure.
-func (p *PressureMb) Units() PressureUnit {
-	return Mb
+// Units returns the units of the pressure.
+func (p *PressurePsi) Units() PressureUnit {
+	return Psi
 }
 
 // Valid returns true if the pressure is valid.
-func (p *PressureMb) Valid() bool {
+func (p *PressurePsi) Valid() bool {
 	return p.valid
 }
