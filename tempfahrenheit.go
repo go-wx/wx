@@ -48,6 +48,8 @@ func (t *TempF) Set(measurement float64) error {
 			t.F()), "TempF.Set")
 	}
 
+	t.valid = true
+
 	return nil
 }
 

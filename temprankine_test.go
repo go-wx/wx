@@ -262,6 +262,21 @@ func TestTempR_Units(t *testing.T) {
 	}
 }
 
+func TestTempR_Valid(t *testing.T) {
+	tr := TempR{}
+	if tr.Valid() {
+		t.Errorf("expected false, got true")
+	}
+
+	if err := tr.Set(558.87); err != nil {
+		t.Errorf("unexpected error: %v", err)
+	}
+
+	if !tr.Valid() {
+		t.Errorf("expected true, got false")
+	}
+}
+
 func TestTempR_Temp(t *testing.T) {
 	var _ Temp = &TempR{}
 }

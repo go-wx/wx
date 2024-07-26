@@ -233,7 +233,9 @@ func TestTempC_Valid(t *testing.T) {
 		t.Fatalf("expected false, got true")
 	}
 
-	c.valid = true
+	if err := c.Set(100); err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
 
 	if !c.Valid() {
 		t.Fatalf("expected true, got false")

@@ -44,6 +44,7 @@ func (t *TempK) Set(measurement float64) error {
 	}
 
 	t.valid = true
+
 	return nil
 }
 

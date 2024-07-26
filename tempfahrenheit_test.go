@@ -281,7 +281,9 @@ func TestTempF_Valid(t *testing.T) {
 		t.Fatalf("expected false, got true")
 	}
 
-	tf.valid = true
+	if err := tf.Set(100); err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
 
 	if !tf.Valid() {
 		t.Fatalf("expected true, got false")
