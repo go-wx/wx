@@ -41,8 +41,11 @@ func (t *TempF) R() float64 {
 func (t *TempF) Set(measurement float64) error {
 	t.measurement = measurement
 	if t.R() < 0 {
+		t.measurement = 0
 		t.valid = false
-		return NewWxErr(fmt.Sprintf("temperature %v°F is below absolute zero rankine", t.F()), "TempF.Set")
+
+		return NewWxErr(fmt.Sprintf("temperature %v°F is below absolute zero rankine",
+			t.F()), "TempF.Set")
 	}
 
 	return nil

@@ -113,8 +113,8 @@ func TestTempC_Set(t *testing.T) {
 		{"-40°C", -40, -40, false},
 		{"-100°C", -100, -100, false},
 		{"0.0°C", 0.0, 0.0, false},
-		{"-459.67°C", -459.67, -459.67, true},
-		{"-273.16°C", -273.16, -273.16, true},
+		{"-459.67°C", -459.67, 0, true},
+		{"-273.16°C", -273.16, 0, true},
 	}
 
 	for _, tc := range tt {
@@ -224,6 +224,19 @@ func TestTempC_Units(t *testing.T) {
 	c := TempC{}
 	if c.Units() != Celsius {
 		t.Fatalf("expected %v, got %v", Celsius, c.Units())
+	}
+}
+
+func TestTempC_Valid(t *testing.T) {
+	c := TempC{}
+	if c.Valid() {
+		t.Fatalf("expected false, got true")
+	}
+
+	c.valid = true
+
+	if !c.Valid() {
+		t.Fatalf("expected true, got false")
 	}
 }
 

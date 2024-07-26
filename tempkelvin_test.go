@@ -279,6 +279,22 @@ func TestTempK_Units(t *testing.T) {
 	}
 }
 
+func TestTempK_Valid(t *testing.T) {
+	tk := TempK{}
+	if tk.Valid() {
+		t.Errorf("expected false, got true")
+	}
+
+	if err := tk.Set(100); err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+
+	if !tk.Valid() {
+		t.Errorf("expected true, got false")
+	}
+
+}
+
 func TestTempK_Temp(t *testing.T) {
 	var _ Temp = &TempK{}
 }

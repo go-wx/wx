@@ -38,9 +38,12 @@ func (t *TempK) Set(measurement float64) error {
 	// Check for valid temperature.
 	// Source: https://en.wikipedia.org/wiki/Kelvin
 	if t.K() < 0 {
+		t.measurement = 0
 		t.valid = false
 		return NewWxErr("temperature must be zero or greater", "TempK.Set")
 	}
+
+	t.valid = true
 	return nil
 }
 

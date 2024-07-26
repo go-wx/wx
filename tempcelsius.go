@@ -37,6 +37,7 @@ func (t *TempC) Set(measurement float64) error {
 	t.measurement = measurement
 	if t.K() < 0 {
 		t.valid = false
+		t.measurement = 0
 		return NewWxErr(fmt.Sprintf("temperature %v°C is below absolute zero kelvin", t.C()), "TempC.Set")
 	}
 
@@ -49,10 +50,6 @@ func (t *TempC) Set(measurement float64) error {
 
 // ToC returns the temperature in Celsius.
 func (t *TempC) ToC() TempC {
-	if !t.valid {
-		return TempC{}
-	}
-
 	return TempC{
 		measurement: t.measurement,
 		valid:       t.valid,

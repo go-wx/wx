@@ -134,7 +134,7 @@ func TestTempF_Set(t *testing.T) {
 		{"0.0°F", 0.0, 0.0, false},
 		{"32.0°F", 32.0, 32.0, false},
 		{"-459.67°F", -459.67, -459.67, false},
-		{"-500°F", -500, -500, true},
+		{"-500°F", -500, 0, true},
 	}
 
 	for _, tc := range tt {
@@ -271,6 +271,20 @@ func TestTempF_Units(t *testing.T) {
 	tf := TempF{}
 	if tf.Units() != Fahrenheit {
 		t.Fatalf("expected %v, got %v", Fahrenheit, tf.Units())
+	}
+}
+
+func TestTempF_Valid(t *testing.T) {
+	tf := TempF{}
+
+	if tf.Valid() {
+		t.Fatalf("expected false, got true")
+	}
+
+	tf.valid = true
+
+	if !tf.Valid() {
+		t.Fatalf("expected true, got false")
 	}
 }
 

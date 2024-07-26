@@ -36,7 +36,9 @@ func (t *TempR) Set(measurement float64) error {
 	t.measurement = measurement
 
 	if t.R() < 0 {
+		t.measurement = 0
 		t.valid = false
+
 		return NewWxErr("temperature must be zero or greater", "TempR.Set")
 	}
 
