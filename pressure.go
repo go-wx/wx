@@ -1,5 +1,13 @@
 package wx
 
+var (
+	HPa  = PressureUnit{"hPa"}
+	InHg = PressureUnit{"inHg"}
+	Mb   = PressureUnit{"mb"}
+	KPa  = PressureUnit{"kPa"}
+	Psi  = PressureUnit{"psi"}
+)
+
 type Pressure interface {
 	// HPa returns the pressure in hPa.
 	HPa() float64
@@ -34,7 +42,7 @@ type Pressure interface {
 	// ToPsi returns the pressure in pounds per square inch.
 	ToPsi() float64
 
-	// Units returns the units of the pressure.
+	// Units return the units of the pressure.
 	Units() string
 }
 
@@ -47,11 +55,3 @@ type PressureUnit struct {
 func (u PressureUnit) String() string {
 	return u.string
 }
-
-var (
-	HPa  = PressureUnit{"hPa"}
-	InHg = PressureUnit{"inHg"}
-	Mb   = PressureUnit{"mb"}
-	KPa  = PressureUnit{"kPa"}
-	Psi  = PressureUnit{"psi"}
-)

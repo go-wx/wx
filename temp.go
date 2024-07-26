@@ -1,5 +1,18 @@
 package wx
 
+// TempUnit is a type for temperature units.
+type TempUnit struct {
+	string
+}
+
+// Temperature units.
+var (
+	Celsius    = TempUnit{"C"}
+	Fahrenheit = TempUnit{"F"}
+	Kelvin     = TempUnit{"K"}
+	Rankine    = TempUnit{"R"}
+)
+
 // Temp is an interface for temperature measurements.
 type Temp interface {
 	C() float64
@@ -14,20 +27,7 @@ type Temp interface {
 	Valid() bool
 }
 
-// TempUnit is a type for temperature units.
-type TempUnit struct {
-	string
-}
-
 // String returns the string representation of the temperature unit.
 func (u TempUnit) String() string {
 	return u.string
 }
-
-// Temperature units.
-var (
-	Celsius    = TempUnit{"C"}
-	Fahrenheit = TempUnit{"F"}
-	Kelvin     = TempUnit{"K"}
-	Rankine    = TempUnit{"R"}
-)

@@ -18,7 +18,7 @@ func TestTempC_C(t *testing.T) {
 
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			tc := TempC{tc.value}
+			tc := TempC{tc.value, true}
 			if !tests.CloseEnough(tc.C(), tc.measurement, tolerance) {
 				t.Fatalf("expected %v, got %v", tc.measurement, tc.C())
 			}
@@ -149,7 +149,7 @@ func TestTempC_ToC(t *testing.T) {
 
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			c := TempC{tc.value}
+			c := TempC{tc.value, true}
 			if !tests.CloseEnough(c.ToC().measurement, tc.expected, tolerance) {
 				t.Fatalf("expected %v, got %v", tc.expected, c.ToC().measurement)
 			}
@@ -170,7 +170,7 @@ func TestTempC_ToF(t *testing.T) {
 
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			c := TempC{tc.value}
+			c := TempC{tc.value, true}
 			if !tests.CloseEnough(c.ToF().measurement, tc.expected, tolerance) {
 				t.Fatalf("expected %v, got %v", tc.expected, c.ToF().measurement)
 			}
@@ -191,7 +191,7 @@ func TestTempC_ToK(t *testing.T) {
 
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			c := TempC{tc.value}
+			c := TempC{tc.value, true}
 			if !tests.CloseEnough(c.ToK().measurement, tc.expected, tolerance) {
 				t.Fatalf("expected %v, got %v", tc.expected, c.ToK().measurement)
 			}
@@ -212,7 +212,7 @@ func TestTempC_ToR(t *testing.T) {
 
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			c := TempC{tc.value}
+			c := TempC{tc.value, true}
 			if !tests.CloseEnough(c.ToR().measurement, tc.expected, tolerance) {
 				t.Fatalf("expected %v, got %v", tc.expected, c.ToR().measurement)
 			}

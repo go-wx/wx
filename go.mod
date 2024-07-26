@@ -1,3 +1,3 @@
 module github.com/go-wx/wx
 
-go 1.16
+go 1.22.1

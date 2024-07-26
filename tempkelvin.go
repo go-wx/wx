@@ -38,6 +38,7 @@ func (t *TempK) Set(measurement float64) error {
 	// Check for valid temperature.
 	// Source: https://en.wikipedia.org/wiki/Kelvin
 	if t.K() < 0 {
+		t.valid = false
 		return NewWxErr("temperature must be zero or greater", "TempK.Set")
 	}
 	return nil
@@ -45,12 +46,18 @@ func (t *TempK) Set(measurement float64) error {
 
 // ToC converts the temperature to Celsius.
 func (t *TempK) ToC() TempC {
-	return TempC{t.C()}
+	return TempC{
+		measurement: t.C(),
+		valid:       t.valid,
+	}
 }
 
 // ToF converts the temperature to Fahrenheit.
 func (t *TempK) ToF() TempF {
-	return TempF{t.F()}
+	return TempF{
+		measurement: t.F(),
+		valid:       t.valid,
+	}
 }
 
 // ToK returns the temperature in Kelvin.
@@ -63,7 +70,10 @@ func (t *TempK) ToK() TempK {
 
 // ToR converts the temperature to Rankine.
 func (t *TempK) ToR() TempR {
-	return TempR{t.R()}
+	return TempR{
+		measurement: t.R(),
+		valid:       t.valid,
+	}
 }
 
 // Units returns kelvin.

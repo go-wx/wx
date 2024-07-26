@@ -174,7 +174,7 @@ func TestTempF_ToC(t *testing.T) {
 				t.Fatalf("unexpected error: %v", err)
 			}
 
-			tcC := TempC{tc.expected}
+			tcC := TempC{tc.expected, true}
 			if !tests.CloseEnough(tf.ToC().measurement, tcC.measurement, tolerance) {
 				t.Fatalf("expected %v, got %v", tcC, tf.ToC())
 			}
@@ -202,7 +202,7 @@ func TestTempF_ToF(t *testing.T) {
 				t.Fatalf("unexpected error: %v", err)
 			}
 
-			tcF := TempF{tc.expected}
+			tcF := TempF{tc.expected, true}
 			if !tests.CloseEnough(tf.ToF().measurement, tcF.measurement, tolerance) {
 				t.Fatalf("expected %v, got %v", tcF, tf.ToF())
 			}
@@ -230,7 +230,7 @@ func TestTempF_ToK(t *testing.T) {
 				t.Fatalf("unexpected error: %v", err)
 			}
 
-			tcK := TempK{tc.expected}
+			tcK := TempK{tc.expected, true}
 			if !tests.CloseEnough(tf.ToK().measurement, tcK.measurement, tolerance) {
 				t.Fatalf("expected %v, got %v", tcK, tf.ToK())
 			}
@@ -259,7 +259,7 @@ func TestTempF_ToR(t *testing.T) {
 				t.Fatalf("unexpected error: %v", err)
 			}
 
-			tcR := TempR{tc.expected}
+			tcR := TempR{tc.expected, true}
 			if !tests.CloseEnough(tf.ToR().measurement, tcR.measurement, tolerance) {
 				t.Fatalf("expected %v, got %v", tcR, tf.ToR())
 			}

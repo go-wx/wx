@@ -14,6 +14,7 @@ const (
 // TempF is a temperature measurement in Fahrenheit.
 type TempF struct {
 	measurement float64
+	valid       bool
 }
 
 // C returns the temperature in Celsius.
@@ -40,6 +41,7 @@ func (t *TempF) R() float64 {
 func (t *TempF) Set(measurement float64) error {
 	t.measurement = measurement
 	if t.R() < 0 {
+		t.valid = false
 		return NewWxErr(fmt.Sprintf("temperature %v°F is below absolute zero rankine", t.F()), "TempF.Set")
 	}
 
@@ -48,25 +50,42 @@ func (t *TempF) Set(measurement float64) error {
 
 // ToC converts the temperature to Celsius.
 func (t *TempF) ToC() TempC {
-	return TempC{t.C()}
+	return TempC{
+		measurement: t.C(),
+		valid:       t.valid,
+	}
 }
 
 // ToF returns the temperature in Fahrenheit.
 func (t *TempF) ToF() TempF {
-	return TempF{t.measurement}
+	return TempF{
+		measurement: t.measurement,
+		valid:       t.valid,
+	}
 }
 
 // ToK converts the temperature to Kelvin.
 func (t *TempF) ToK() TempK {
-	return TempK{t.K()}
+	return TempK{
+		measurement: t.K(),
+		valid:       t.valid,
+	}
 }
 
 // ToR converts the temperature to Rankine.
 func (t *TempF) ToR() TempR {
-	return TempR{t.R()}
+	return TempR{
+		measurement: t.R(),
+		valid:       t.valid,
+	}
 }
 
-// Units returns the temperature units.
+// Units return the temperature units.
 func (t *TempF) Units() TempUnit {
 	return Fahrenheit
+}
+
+// Valid returns true if the temperature is valid.
+func (t *TempF) Valid() bool {
+	return t.valid
 }

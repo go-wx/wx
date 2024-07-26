@@ -36,6 +36,7 @@ func (t *TempC) R() float64 {
 func (t *TempC) Set(measurement float64) error {
 	t.measurement = measurement
 	if t.K() < 0 {
+		t.valid = false
 		return NewWxErr(fmt.Sprintf("temperature %v°C is below absolute zero kelvin", t.C()), "TempC.Set")
 	}
 
@@ -60,17 +61,26 @@ func (t *TempC) ToC() TempC {
 
 // ToF converts the temperature to Fahrenheit.
 func (t *TempC) ToF() TempF {
-	return TempF{t.F()}
+	return TempF{
+		measurement: t.F(),
+		valid:       t.valid,
+	}
 }
 
 // ToK converts the temperature to Kelvin.
 func (t *TempC) ToK() TempK {
-	return TempK{t.K()}
+	return TempK{
+		measurement: t.K(),
+		valid:       t.valid,
+	}
 }
 
 // ToR converts the temperature to Rankine.
 func (t *TempC) ToR() TempR {
-	return TempR{t.R()}
+	return TempR{
+		measurement: t.R(),
+		valid:       t.valid,
+	}
 }
 
 // Units returns celsius.
