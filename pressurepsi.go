@@ -18,14 +18,19 @@ func (p *PressurePsi) InHg() float64 {
 	return p.measurement * conversionFactoryPsiToPa / (conversionFactorInHgToHPa * 100)
 }
 
+// KPa returns the pressure in kilopascals.
+func (p *PressurePsi) KPa() float64 {
+	return p.measurement * conversionFactoryPsiToPa / 1000
+}
+
 // Mb returns the pressure in millibars.
 func (p *PressurePsi) Mb() float64 {
 	return p.measurement * conversionFactorInHgToHPa / 100
 }
 
-// KPa returns the pressure in kilopascals.
-func (p *PressurePsi) KPa() float64 {
-	return p.measurement * conversionFactoryPsiToPa / 1000
+// Pa returns the pressure in pascals.
+func (p *PressurePsi) Pa() float64 {
+	return p.measurement * conversionFactoryPsiToPa
 }
 
 // Psi returns the pressure in pounds per square inch.
@@ -61,6 +66,14 @@ func (p *PressurePsi) ToInHg() PressureInHg {
 	}
 }
 
+// ToKPa returns the pressure in kilopascals.
+func (p *PressurePsi) ToKPa() PressureKPa {
+	return PressureKPa{
+		measurement: p.KPa(),
+		valid:       p.valid,
+	}
+}
+
 // ToMb returns the pressure in millibars.
 func (p *PressurePsi) ToMb() PressureMb {
 	return PressureMb{
@@ -69,10 +82,10 @@ func (p *PressurePsi) ToMb() PressureMb {
 	}
 }
 
-// ToKPa returns the pressure in kilopascals.
-func (p *PressurePsi) ToKPa() PressureKPa {
-	return PressureKPa{
-		measurement: p.KPa(),
+// ToPa returns the pressure in pascals.
+func (p *PressurePsi) ToPa() PressurePa {
+	return PressurePa{
+		measurement: p.Pa(),
 		valid:       p.valid,
 	}
 }
