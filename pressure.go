@@ -14,6 +14,11 @@ var (
 )
 
 const (
+	conversionFactorInHgToHPa = 33.8639
+	conversionFactoryPsiToPa  = 6894.76
+)
+
+const (
 	// ErrPressureNegative is returned when negative pressure is set.
 	ErrPressureNegative = "pressure cannot be negative"
 )
