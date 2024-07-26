@@ -1,5 +1,10 @@
 package wx
 
+// PressureUnit is a type for pressure units.
+type PressureUnit struct {
+	string
+}
+
 var (
 	HPa  = PressureUnit{"hPa"}
 	InHg = PressureUnit{"inHg"}
@@ -8,6 +13,7 @@ var (
 	Psi  = PressureUnit{"psi"}
 )
 
+// Pressure is an interface for pressure types.
 type Pressure interface {
 	// HPa returns the pressure in hPa.
 	HPa() float64
@@ -44,11 +50,9 @@ type Pressure interface {
 
 	// Units return the units of the pressure.
 	Units() string
-}
 
-// PressureUnit is a type for pressure units.
-type PressureUnit struct {
-	string
+	// Valid returns true if the pressure is valid.
+	Valid() bool
 }
 
 // String returns the string representation of the pressure unit.
