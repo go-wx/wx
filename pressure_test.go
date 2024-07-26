@@ -13,6 +13,7 @@ func TestPressureUnit_String(t *testing.T) {
 		{"psi", Psi, "psi"},
 		{"kPa", KPa, "kPa"},
 		{"mb", Mb, "mb"},
+		{"Pa", Pa, "Pa"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

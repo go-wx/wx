@@ -8,8 +8,9 @@ type PressureUnit struct {
 var (
 	HPa  = PressureUnit{"hPa"}
 	InHg = PressureUnit{"inHg"}
-	Mb   = PressureUnit{"mb"}
 	KPa  = PressureUnit{"kPa"}
+	Mb   = PressureUnit{"mb"}
+	Pa   = PressureUnit{"Pa"}
 	Psi  = PressureUnit{"psi"}
 )
 
