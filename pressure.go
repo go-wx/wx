@@ -34,6 +34,9 @@ type Pressure interface {
 	// Mb returns the pressure in millibars.
 	Mb() float64
 
+	// Pa returns the pressure in pascals.
+	Pa() float64
+
 	// KPa returns the pressure in kilopascals.
 	KPa() float64
 
@@ -42,6 +45,9 @@ type Pressure interface {
 
 	// Set sets the pressure.
 	Set(measurement float64) error
+
+	// ToPa returns the pressure in pascals.
+	ToPa() PressurePa
 
 	// ToHPa returns the pressure in hPa.
 	ToHPa() PressureHPa
