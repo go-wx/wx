@@ -25,7 +25,7 @@ func (p *PressurePsi) KPa() float64 {
 
 // Mb returns the pressure in millibars.
 func (p *PressurePsi) Mb() float64 {
-	return p.measurement * conversionFactorInHgToHPa / 100
+	return p.HPa()
 }
 
 // Pa returns the pressure in pascals.
