@@ -5,6 +5,11 @@ type PressureUnit struct {
 	string
 }
 
+// String returns the string representation of the pressure unit.
+func (u PressureUnit) String() string {
+	return u.string
+}
+
 var (
 	HPa  = PressureUnit{"hPa"}
 	InHg = PressureUnit{"inHg"}
@@ -70,9 +75,4 @@ type Pressure interface {
 
 	// Valid returns true if the pressure is valid.
 	Valid() bool
-}
-
-// String returns the string representation of the pressure unit.
-func (u PressureUnit) String() string {
-	return u.string
 }
