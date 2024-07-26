@@ -10,17 +10,17 @@ type PressurePsi struct {
 
 // HPa returns the pressure in hPa.
 func (p *PressurePsi) HPa() float64 {
-	return p.measurement * conversionFactoryPsiToPa / 100
+	return p.measurement * conversionFactorPsiToPa / 100
 }
 
 // InHg returns the pressure in inches of mercury.
 func (p *PressurePsi) InHg() float64 {
-	return p.measurement * conversionFactoryPsiToPa / (conversionFactorInHgToHPa * 100)
+	return p.measurement * conversionFactorPsiToPa / (conversionFactorInHgToHPa * 100)
 }
 
 // KPa returns the pressure in kilopascals.
 func (p *PressurePsi) KPa() float64 {
-	return p.measurement * conversionFactoryPsiToPa / 1000
+	return p.measurement * conversionFactorPsiToPa / 1000
 }
 
 // Mb returns the pressure in millibars.
@@ -30,7 +30,7 @@ func (p *PressurePsi) Mb() float64 {
 
 // Pa returns the pressure in pascals.
 func (p *PressurePsi) Pa() float64 {
-	return p.measurement * conversionFactoryPsiToPa
+	return p.measurement * conversionFactorPsiToPa
 }
 
 // Psi returns the pressure in pounds per square inch.

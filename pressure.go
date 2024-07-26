@@ -21,7 +21,7 @@ var (
 
 const (
 	conversionFactorInHgToHPa = 33.8639
-	conversionFactoryPsiToPa  = 6894.76
+	conversionFactorPsiToPa   = 6894.76
 )
 
 const (

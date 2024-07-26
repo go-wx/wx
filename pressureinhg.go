@@ -35,7 +35,7 @@ func (p *PressureInHg) KPa() float64 {
 
 // Psi returns the pressure in pounds per square inch.
 func (p *PressureInHg) Psi() float64 {
-	return p.measurement * conversionFactorInHgToHPa * 100 / conversionFactoryPsiToPa
+	return p.measurement * conversionFactorInHgToHPa * 100 / conversionFactorPsiToPa
 }
 
 // Set sets the pressure.

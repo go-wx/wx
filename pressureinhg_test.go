@@ -153,7 +153,7 @@ func TestPressureInHg_Psi(t *testing.T) {
 		{
 			name:                "valid pressure",
 			pressureMeasurement: 29.92,
-			expected:            29.92 * conversionFactorInHgToHPa * 100 / conversionFactoryPsiToPa,
+			expected:            29.92 * conversionFactorInHgToHPa * 100 / conversionFactorPsiToPa,
 			valid:               true,
 		},
 		{

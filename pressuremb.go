@@ -34,7 +34,7 @@ func (p *PressureMb) Pa() float64 {
 
 // Psi returns the pressure in pounds per square inch.
 func (p *PressureMb) Psi() float64 {
-	return p.measurement * 100 / conversionFactoryPsiToPa
+	return p.measurement * 100 / conversionFactorPsiToPa
 }
 
 // Set sets the pressure.
