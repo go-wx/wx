@@ -9,27 +9,27 @@ type VelocityFps struct {
 	measurement float64
 }
 
-// Fps returns the speed in feet per second
+// Fps returns the speed in feet per second.
 func (v *VelocityFps) Fps() float64 {
 	return v.measurement
 }
 
-// Kts returns the speed in knots
+// Kts returns the speed in knots.
 func (v *VelocityFps) Kts() float64 {
 	return v.measurement / conversionFactorFpsToKnots
 }
 
-// Kph returns the speed in kilometers per hour
+// Kph returns the speed in kilometers per hour.
 func (v *VelocityFps) Kph() float64 {
 	return v.measurement * conversionFactorFpsToMps * secondsInHour / 1000
 }
 
-// Mph returns the speed in miles per hour
+// Mph returns the speed in miles per hour.
 func (v *VelocityFps) Mph() float64 {
 	return v.measurement * secondsInHour / feetPerStatuteMile
 }
 
-// Mps returns the speed in meters per second
+// Mps returns the speed in meters per second.
 func (v *VelocityFps) Mps() float64 {
 	return v.measurement * conversionFactorFpsToMps
 }
@@ -83,7 +83,7 @@ func (v *VelocityFps) ToMps() VelocityMps {
 	}
 }
 
-// Units return the velocity's units
+// Units return the velocity's units.
 func (v *VelocityFps) Units() VelocityUnit {
 	return FeetPerSecond
 }
