@@ -263,6 +263,10 @@ func TestVelocityFps_ToFps(t *testing.T) {
 			if !tests.CloseEnough(v2.Fps(), tc.want, 1e-6) {
 				t.Errorf("got %v, want %v", v2.Fps(), tc.want)
 			}
+
+			if v2.Valid() != tc.valid {
+				t.Errorf("expected valid %v, got %v", tc.valid, v2.Valid())
+			}
 		})
 	}
 }
@@ -306,6 +310,10 @@ func TestVelocityFps_ToKts(t *testing.T) {
 			v2 := v.ToKts()
 			if !tests.CloseEnough(v2.Kts(), tc.want, 1e-6) {
 				t.Errorf("got %v, want %v", v2.Kts(), tc.want)
+			}
+
+			if v2.Valid() != tc.valid {
+				t.Errorf("expected valid %v, got %v", tc.valid, v2.Valid())
 			}
 		})
 	}
@@ -351,6 +359,10 @@ func TestVelocityFps_ToKph(t *testing.T) {
 			if !tests.CloseEnough(v2.Kph(), tc.want, 1e-6) {
 				t.Errorf("got %v, want %v", v2.Kph(), tc.want)
 			}
+
+			if v2.Valid() != tc.valid {
+				t.Errorf("expected valid %v, got %v", tc.valid, v2.Valid())
+			}
 		})
 	}
 }
@@ -395,6 +407,10 @@ func TestVelocityFps_ToMph(t *testing.T) {
 			if !tests.CloseEnough(v2.Mph(), tc.want, 1e-6) {
 				t.Errorf("got %v, want %v", v2.Mph(), tc.want)
 			}
+
+			if v2.Valid() != tc.valid {
+				t.Errorf("expected valid %v, got %v", tc.valid, v2.Valid())
+			}
 		})
 	}
 }
@@ -438,6 +454,10 @@ func TestVelocityFps_ToMps(t *testing.T) {
 			v2 := v.ToMps()
 			if !tests.CloseEnough(v2.Mps(), tc.want, 1e-6) {
 				t.Errorf("got %v, want %v", v2.Mps(), tc.want)
+			}
+
+			if v2.Valid() != tc.valid {
+				t.Errorf("expected valid %v, got %v", tc.valid, v2.Valid())
 			}
 		})
 	}
