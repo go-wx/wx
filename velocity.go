@@ -37,6 +37,7 @@ const (
 	conversionFactorFpsToMps   = 0.3048      // one meter = 3.28084 feet
 	feetPerNauticalMile        = 6076.11549  // one nautical mile = 6,076.11549 feet
 	feetPerStatuteMile         = 5280        // one statute mile = 5,280 feet
+	feetPerMeter               = 3.280839895 // one meter = 3.280839895 feet
 	knotsPerMph                = 0.868976    // one mph = 0.868976 knots
 	secondsInHour              = 3600        // one hour = 3,600 seconds
 )
