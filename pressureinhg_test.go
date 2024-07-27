@@ -491,3 +491,36 @@ func TestPressureInHg_Valid(t *testing.T) {
 		t.Errorf("expected true, got false")
 	}
 }
+
+func BenchmarkPressureInHg_HPa(b *testing.B) {
+	p := PressureInHg{}
+	if err := p.Set(29.92); err != nil {
+		b.Fatalf("unexpected error setting pressure: %v", err)
+	}
+
+	for i := 0; i < b.N; i++ {
+		p.HPa()
+	}
+}
+
+func BenchmarkPressureInHg_InHg(b *testing.B) {
+	p := PressureInHg{}
+	if err := p.Set(29.92); err != nil {
+		b.Fatalf("unexpected error setting pressure: %v", err)
+	}
+
+	for i := 0; i < b.N; i++ {
+		p.InHg()
+	}
+}
+
+func BenchmarkPressureInHg_ToKPa(b *testing.B) {
+	p := PressureInHg{}
+	if err := p.Set(29.92); err != nil {
+		b.Fatalf("unexpected error setting pressure: %v", err)
+	}
+
+	for i := 0; i < b.N; i++ {
+		p.ToKPa()
+	}
+}

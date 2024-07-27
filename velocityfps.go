@@ -51,7 +51,7 @@ func (v *VelocityFps) Set(measurement float64) error {
 // ToFps converts to feet per second.
 func (v *VelocityFps) ToFps() VelocityFps {
 	return VelocityFps{
-		measurement: v.measurement,
+		measurement: v.Fps(),
 	}
 }
 
