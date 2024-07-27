@@ -6,6 +6,7 @@ import "fmt"
 // nautical miles per hour.
 type VelocityKts struct {
 	measurement float64
+	valid       bool
 }
 
 // Fps returns the speed in feet per second.
@@ -37,11 +38,13 @@ func (v *VelocityKts) Mps() float64 {
 func (v *VelocityKts) Set(measurement float64) error {
 	if measurement < 0 {
 		v.measurement = 0
+		v.valid = false
 
 		return fmt.Errorf(ErrVelocityMustBeZeroOrGreater)
 	}
 
 	v.measurement = measurement
+	v.valid = true
 
 	return nil
 }
@@ -50,6 +53,7 @@ func (v *VelocityKts) Set(measurement float64) error {
 func (v *VelocityKts) ToFps() VelocityFps {
 	return VelocityFps{
 		measurement: v.Fps(),
+		valid:       v.valid,
 	}
 }
 
@@ -62,6 +66,7 @@ func (v *VelocityKts) ToKts() VelocityKts {
 func (v *VelocityKts) ToKph() VelocityKph {
 	return VelocityKph{
 		measurement: v.Kph(),
+		valid:       v.valid,
 	}
 }
 
@@ -69,6 +74,7 @@ func (v *VelocityKts) ToKph() VelocityKph {
 func (v *VelocityKts) ToMph() VelocityMph {
 	return VelocityMph{
 		measurement: v.Mph(),
+		valid:       v.valid,
 	}
 }
 
@@ -76,6 +82,7 @@ func (v *VelocityKts) ToMph() VelocityMph {
 func (v *VelocityKts) ToMps() VelocityMps {
 	return VelocityMps{
 		measurement: v.Mps(),
+		valid:       v.valid,
 	}
 }
 
@@ -86,5 +93,5 @@ func (v *VelocityKts) Units() VelocityUnit {
 
 // Valid returns true if the velocity is zero or greater.
 func (v *VelocityKts) Valid() bool {
-	return v.measurement >= 0
+	return v.valid
 }

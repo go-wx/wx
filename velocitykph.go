@@ -6,6 +6,7 @@ import "fmt"
 // per hour (kph).
 type VelocityKph struct {
 	measurement float64
+	valid       bool
 }
 
 // Fps returns the velocity in feet per second (fps).
@@ -38,11 +39,13 @@ func (v *VelocityKph) Set(measurement float64) error {
 	// Velocity measurement needs to be zero or greater.
 	if measurement < 0.0 {
 		v.measurement = 0
+		v.valid = false
 
 		return fmt.Errorf(ErrVelocityMustBeZeroOrGreater)
 	}
 
 	v.measurement = measurement
+	v.valid = true
 
 	return nil
 }
@@ -51,6 +54,7 @@ func (v *VelocityKph) Set(measurement float64) error {
 func (v *VelocityKph) ToFps() VelocityFps {
 	return VelocityFps{
 		measurement: v.Fps(),
+		valid:       v.valid,
 	}
 }
 
@@ -58,6 +62,7 @@ func (v *VelocityKph) ToFps() VelocityFps {
 func (v *VelocityKph) ToKts() VelocityKts {
 	return VelocityKts{
 		measurement: v.Kts(),
+		valid:       v.valid,
 	}
 }
 
@@ -65,6 +70,7 @@ func (v *VelocityKph) ToKts() VelocityKts {
 func (v *VelocityKph) ToKph() VelocityKph {
 	return VelocityKph{
 		measurement: v.Kph(),
+		valid:       v.valid,
 	}
 }
 
@@ -72,6 +78,7 @@ func (v *VelocityKph) ToKph() VelocityKph {
 func (v *VelocityKph) ToMph() VelocityMph {
 	return VelocityMph{
 		measurement: v.Mph(),
+		valid:       v.valid,
 	}
 }
 
@@ -79,6 +86,7 @@ func (v *VelocityKph) ToMph() VelocityMph {
 func (v *VelocityKph) ToMps() VelocityMps {
 	return VelocityMps{
 		measurement: v.Mps(),
+		valid:       v.valid,
 	}
 }
 
@@ -89,5 +97,5 @@ func (v *VelocityKph) Units() VelocityUnit {
 
 // Valid returns true if the velocity is zero or greater.
 func (v *VelocityKph) Valid() bool {
-	return v.measurement >= 0.0
+	return v.valid
 }
