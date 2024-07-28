@@ -33,13 +33,14 @@ var (
 )
 
 const (
-	conversionFactorFpsToKnots = 1 / 1.68781                              // one knot = 1.68781 fps
-	conversionFactorFpsToMps   = 0.3048                                   // one meter = 3.28084 feet
-	feetPerNauticalMile        = 6076.11549                               // one nautical mile = 6,076.11549 feet
-	feetPerStatuteMile         = 5280.0                                   // one statute mile = 5,280 feet
-	feetPerMeter               = 3.280839895                              // one meter = 3.280839895 feet
-	secondsInHour              = 3600.0                                   // one hour = 3,600 seconds
-	nauticalMilesPerMile       = feetPerStatuteMile / feetPerNauticalMile // one nautical mile = 1.15078 statute miles
+	// Conversion factors
+	conversionFactorFpsToKnots = secondsInHour / feetPerNauticalMile
+	conversionFactorFpsToMps   = 0.3048
+	feetPerNauticalMile        = 6076.11549
+	feetPerStatuteMile         = 5280.0
+	feetPerMeter               = 3.280839895
+	secondsInHour              = 60.0 * 60.0
+	nauticalMilesPerMile       = feetPerStatuteMile / feetPerNauticalMile
 )
 
 const (

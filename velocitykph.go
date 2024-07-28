@@ -26,7 +26,7 @@ func (v *VelocityKph) Kph() float64 {
 
 // Mph returns the velocity in miles per hour.
 func (v *VelocityKph) Mph() float64 {
-	return v.Fps() * feetPerStatuteMile / secondsInHour
+	return v.Fps() * secondsInHour / feetPerStatuteMile
 }
 
 // Mps returns the velocity in meters per second.
