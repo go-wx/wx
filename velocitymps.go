@@ -15,7 +15,7 @@ func (v *VelocityMps) Fps() float64 {
 
 // Kts returns the speed in knots.
 func (v *VelocityMps) Kts() float64 {
-	return v.Fps() / feetPerMeter * feetPerNauticalMile / secondsInHour
+	return v.measurement * feetPerMeter / feetPerNauticalMile * secondsInHour
 }
 
 // Kph returns the speed in kilometers per hour.
