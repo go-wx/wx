@@ -3,7 +3,7 @@ package wx
 import (
 	"github.com/go-wx/wx/internal/tests"
 	"math"
-	"math/rand/v2"
+	"math/rand"
 	"testing"
 )
 
