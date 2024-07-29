@@ -30,7 +30,7 @@ func (wd WindDirection) To() Degrees {
 
 // UnitVector returns the unit vector of the wind direction.
 // The u-component is the east-west component.
-// The y-component is the north-south component.
+// The v-component is the north-south component.
 func (wd WindDirection) UnitVector() (u, v float64) {
 	return wd.degrees.UnitVector()
 }
