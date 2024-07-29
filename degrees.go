@@ -27,6 +27,10 @@ func (d Degrees) Add(d2 Degrees) Degrees {
 // Divide divides an angle by a scalar and returns
 // a new normalized angle.
 func (d Degrees) Divide(scalar float64) Degrees {
+	if scalar == 0 {
+		return NewDegrees(0)
+	}
+
 	return NewDegrees(d.degrees / scalar)
 }
 
@@ -48,8 +52,8 @@ func (d Degrees) UnitVector() (x, y float64) {
 	rad := d.degrees * math.Pi / 180
 
 	// Calculate the x and y components of the unit vector.
-	x = math.Sin(rad)
-	y = math.Cos(rad)
+	x = -math.Sin(rad)
+	y = -math.Cos(rad)
 
 	return x, y
 }
