@@ -2,6 +2,7 @@ package wx
 
 import (
 	"github.com/go-wx/wx/internal/tests"
+	"math"
 	"math/rand"
 	"testing"
 )
@@ -52,7 +53,7 @@ func TestNewWindDirection(t *testing.T) {
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
 			wd := NewWindDirection(tc.input)
-			if !tests.CloseEnough(wd.Degrees(), tc.expected, 1e-6) {
+			if !tests.CloseEnough(wd.Degrees().Degrees(), tc.expected, 1e-6) {
 				t.Errorf("expected %v; got %v", tc.expected, wd.Degrees())
 			}
 		})
@@ -159,7 +160,7 @@ func TestWindDirection_To(t *testing.T) {
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
 			wd := NewWindDirection(tc.input)
-			if !tests.CloseEnough(wd.To(), tc.expected, 1e-6) {
+			if !tests.CloseEnough(wd.To().Degrees(), tc.expected, 1e-6) {
 				t.Errorf("expected %v; got %v", tc.expected, wd.To())
 			}
 		})
@@ -212,8 +213,71 @@ func TestWindDirection_Degrees(t *testing.T) {
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
 			wd := NewWindDirection(tc.input)
-			if !tests.CloseEnough(wd.Degrees(), tc.expected, 1e-6) {
+			if !tests.CloseEnough(wd.Degrees().Degrees(), tc.expected, 1e-6) {
 				t.Errorf("expected %v; got %v", tc.expected, wd.Degrees())
+			}
+		})
+	}
+}
+
+func TestWindDirection_Radians(t *testing.T) {
+	tt := []struct {
+		name     string
+		input    float64
+		expected float64
+	}{
+		{
+			name:     "0 degrees",
+			input:    0,
+			expected: 0,
+		},
+		{
+			name:     "360 degrees",
+			input:    360,
+			expected: 0,
+		},
+		{
+			name:     "720 degrees",
+			input:    720,
+			expected: 0,
+		},
+		{
+			name:     "90 degrees",
+			input:    90,
+			expected: math.Pi / 2,
+		},
+		{
+			name:     "450 degrees",
+			input:    450,
+			expected: math.Pi / 2,
+		},
+		{
+			name:     "-180 degrees",
+			input:    -180,
+			expected: math.Pi,
+		},
+		{
+			name:     "-450 degrees",
+			input:    -450,
+			expected: 3 * math.Pi / 2,
+		},
+		{
+			name:     "180 degrees",
+			input:    180,
+			expected: math.Pi,
+		},
+		{
+			name:     "270 degrees",
+			input:    270,
+			expected: 3 * math.Pi / 2,
+		},
+	}
+
+	for _, tc := range tt {
+		t.Run(tc.name, func(t *testing.T) {
+			wd := NewWindDirection(tc.input)
+			if !tests.CloseEnough(wd.Radians(), tc.expected, 1e-6) {
+				t.Errorf("expected %v; got %v", tc.expected, wd.Radians())
 			}
 		})
 	}
