@@ -47,15 +47,18 @@ func (d Degrees) Sub(d2 Degrees) Degrees {
 }
 
 // UnitVector returns the unit vector of the degrees.
-func (d Degrees) UnitVector() (x, y float64) {
+// The unit vector is a tuple of two values (u, v) where
+// u is the x (east-west) component and v is the y (north-south)
+// component.
+func (d Degrees) UnitVector() (u, v float64) {
 	// Convert the wind direction to radians.
 	rad := d.degrees * math.Pi / 180
 
 	// Calculate the x and y components of the unit vector.
-	x = -math.Sin(rad)
-	y = -math.Cos(rad)
+	u = -math.Sin(rad)
+	v = -math.Cos(rad)
 
-	return x, y
+	return u, v
 }
 
 // NewDegrees creates a new degrees value from a float64.
