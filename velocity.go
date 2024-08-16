@@ -36,11 +36,7 @@ const (
 	// Conversion factors
 	conversionFactorFpsToKnots = secondsInHour / feetPerNauticalMile
 	conversionFactorFpsToMps   = 0.3048
-	feetPerNauticalMile        = 6076.11549
-	feetPerStatuteMile         = 5280.0
-	feetPerMeter               = 3.280839895
 	secondsInHour              = 60.0 * 60.0
-	nauticalMilesPerMile       = feetPerStatuteMile / feetPerNauticalMile
 )
 
 const (

@@ -7,9 +7,15 @@ type DistanceUnit struct {
 var (
 	FT = DistanceUnit{"ft"}
 	KM = DistanceUnit{"km"}
-	NM = DistanceUnit{"nm"}
+	NM = DistanceUnit{"NM"}
 	M  = DistanceUnit{"m"}
-	SM = DistanceUnit{"sm"}
+	SM = DistanceUnit{"SM"}
+)
+
+const (
+	feetPerNauticalMile = 6076.11549
+	feetPerStatuteMile  = 5280.0
+	feetPerMeter        = 3.280839895
 )
 
 // Distance represents a distance.
@@ -46,4 +52,10 @@ type Distance interface {
 
 	// ToSM converts the distance to statute miles.
 	ToSM() DistanceSM
+
+	// Units returns the units of the distance.
+	Units() DistanceUnit
+
+	// Valid returns true if the distance is zero or greater.
+	Valid() bool
 }
