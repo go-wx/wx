@@ -20,8 +20,8 @@ func (d Degrees) Radians() float64 {
 
 // Add adds two angles together and returns a new
 // normalized angle.
-func (d Degrees) Add(d2 Degrees) Degrees {
-	return NewDegrees(d.degrees + d2.degrees)
+func (d Degrees) Add(deg Degrees) Degrees {
+	return NewDegrees(d.degrees + deg.degrees)
 }
 
 // Divide divides an angle by a scalar and returns
