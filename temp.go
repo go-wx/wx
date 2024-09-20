@@ -5,6 +5,14 @@ import "fmt"
 // TempUnit represents a unit of temperature.
 type tempType int
 
+// Temperature units.
+const (
+	celsius tempType = iota
+	fahrenheit
+	kelvin
+	rankine
+)
+
 // String returns the string representation of the temperature unit.
 func (t tempType) String() string {
 	switch t {
@@ -19,14 +27,6 @@ func (t tempType) String() string {
 	}
 	return ""
 }
-
-// Temperature units.
-const (
-	celsius tempType = iota
-	fahrenheit
-	kelvin
-	rankine
-)
 
 // TempUnit represents a unit of temperature.
 type TempUnit struct {

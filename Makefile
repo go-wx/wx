@@ -2,7 +2,7 @@ benchmark:
 	go test -bench=. -benchmem
 
 coverage:
-	go test -coverprofile=coverage.out
+	go test -shuffle on -coverprofile=coverage.out
 	go tool cover -html=coverage.out
 
 pre-commit:
@@ -11,4 +11,4 @@ pre-commit:
 	make test
 
 test:
-	go test ./...
+	go test -shuffle on ./...
