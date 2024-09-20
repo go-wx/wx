@@ -5,11 +5,27 @@ import (
 	"math"
 )
 
+// distanceType represents a unit of distance.
 type distanceType uint8
 
 // Distance units.
+// The values start at 1 to avoid a zero value if
+// a developer creates an invalid DistanceUnit.
+//
+// For example, if a developer creates a DistanceUnit
+// with a value of zero, the zero value would be
+// considered invalid.
+// Example:
+//
+//	var d DistanceUnit
+//	if !d.Valid() {
+//		// This will be true.
+//	}
+//
+// Developers should use the provided DistanceUnit
+// values to avoid invalid DistanceUnits.
 const (
-	feet distanceType = iota
+	feet distanceType = iota + 1
 	kilometers
 	nauticalMiles
 	meters
@@ -78,11 +94,27 @@ type Distance struct {
 
 // NewDistance creates a new distance measurement.
 func NewDistance(measurement float64, unit DistanceUnit) Distance {
+	switch unit.distanceType {
+	case feet:
+		unit = Feet
+	case kilometers:
+		unit = Kilometers
+	case nauticalMiles:
+		unit = NauticalMiles
+	case meters:
+		unit = Meters
+	case statuteMiles:
+		unit = StatuteMiles
+	case parsec:
+		unit = Parsec
+	default:
+		return Distance{valid: false}
+	}
+
 	return Distance{
 		measurement: measurement,
 		unit:        unit,
-		// There are no lines in the opposite direction.
-		valid: measurement >= 0.0,
+		valid:       measurement >= 0.0,
 	}
 }
 

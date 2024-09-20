@@ -3,6 +3,8 @@ package wx
 import "testing"
 
 func TestDistanceType_String(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name     string
 		distance distanceType
@@ -19,7 +21,6 @@ func TestDistanceType_String(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			t.Parallel()
 			if test.distance.String() != test.expected {
 				t.Errorf("expected %s, got %s", test.expected, test.distance.String())
 			}
@@ -28,6 +29,8 @@ func TestDistanceType_String(t *testing.T) {
 }
 
 func TestNewDistance(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name        string
 		measurement float64
@@ -108,7 +111,6 @@ func TestNewDistance(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			t.Parallel()
 			d := NewDistance(test.measurement, test.unit)
 			if d != test.expected {
 				t.Errorf("expected %v, got %v", test.expected, d)
@@ -118,6 +120,8 @@ func TestNewDistance(t *testing.T) {
 }
 
 func TestDistance_String(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name        string
 		measurement float64
@@ -135,7 +139,6 @@ func TestDistance_String(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			t.Parallel()
 			d := NewDistance(test.measurement, test.unit)
 			if d.String() != test.expected {
 				t.Errorf("expected %s, got %s", test.expected, d.String())
@@ -145,6 +148,8 @@ func TestDistance_String(t *testing.T) {
 }
 
 func TestDistance_Valid(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name        string
 		measurement float64
@@ -162,7 +167,6 @@ func TestDistance_Valid(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			t.Parallel()
 			d := NewDistance(test.measurement, test.unit)
 			if d.Valid() != test.expected {
 				t.Errorf("expected %t, got %t", test.expected, d.Valid())
@@ -172,6 +176,8 @@ func TestDistance_Valid(t *testing.T) {
 }
 
 func TestDistanceFeet(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name        string
 		measurement float64
@@ -189,7 +195,6 @@ func TestDistanceFeet(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			t.Parallel()
 			d := NewDistance(test.measurement, test.unit)
 			if d.FT() != test.expected {
 				// Check if the expected value is within 0.0001 of the actual value
@@ -202,6 +207,8 @@ func TestDistanceFeet(t *testing.T) {
 }
 
 func TestDistanceKilometers(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name        string
 		measurement float64
@@ -221,7 +228,6 @@ func TestDistanceKilometers(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			t.Parallel()
 			d := NewDistance(test.measurement, test.unit)
 			if d.KM() != test.expected {
 				// Check if the expected value is within 0.0001 of the actual value
@@ -234,6 +240,8 @@ func TestDistanceKilometers(t *testing.T) {
 }
 
 func TestDistanceNauticalMiles(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name        string
 		measurement float64
@@ -251,7 +259,6 @@ func TestDistanceNauticalMiles(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			t.Parallel()
 			d := NewDistance(test.measurement, test.unit)
 			if d.NM() != test.expected {
 				// Check if the expected value is within 0.0001 of the actual value
@@ -264,6 +271,8 @@ func TestDistanceNauticalMiles(t *testing.T) {
 }
 
 func TestDistanceMeters(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name        string
 		measurement float64
@@ -293,6 +302,8 @@ func TestDistanceMeters(t *testing.T) {
 }
 
 func TestDistanceStatuteMiles(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name        string
 		measurement float64
@@ -310,7 +321,6 @@ func TestDistanceStatuteMiles(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			t.Parallel()
 			d := NewDistance(test.measurement, test.unit)
 			if d.SM() != test.expected {
 				// Check if the expected value is within 0.0001 of the actual value
@@ -323,6 +333,8 @@ func TestDistanceStatuteMiles(t *testing.T) {
 }
 
 func TestDistanceParsec(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name        string
 		measurement float64
@@ -340,7 +352,6 @@ func TestDistanceParsec(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			t.Parallel()
 			d := NewDistance(test.measurement, test.unit)
 			if d.Parsec() != test.expected {
 				// Check if the expected value is within 0.0001 of the actual value
@@ -353,6 +364,8 @@ func TestDistanceParsec(t *testing.T) {
 }
 
 func TestDistanceAbs(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name        string
 		measurement float64
@@ -370,7 +383,6 @@ func TestDistanceAbs(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			t.Parallel()
 			d := NewDistance(test.measurement, test.unit)
 			if d.Abs().measurement != test.expected {
 				t.Errorf("expected %f, got %f", test.expected, d.Abs().measurement)
@@ -380,6 +392,8 @@ func TestDistanceAbs(t *testing.T) {
 }
 
 func TestDistanceAdd(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name     string
 		d1       Distance
@@ -454,11 +468,16 @@ func TestDistanceAdd(t *testing.T) {
 				valid:       false,
 			},
 		},
+		{
+			name:     "adding invalid unit to feet",
+			d1:       NewDistance(1.0, DistanceUnit{99}),
+			d2:       NewDistance(1.0, Feet),
+			expected: Distance{},
+		},
 	}
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			t.Parallel()
 			d := test.d1.Add(test.d2)
 			if d != test.expected {
 				t.Errorf("expected %v, got %v", test.expected, d)
@@ -468,6 +487,8 @@ func TestDistanceAdd(t *testing.T) {
 }
 
 func TestDistanceSub(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name     string
 		d1       Distance
@@ -530,7 +551,6 @@ func TestDistanceSub(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			t.Parallel()
 			d := test.d1.Sub(test.d2)
 			if d != test.expected {
 				t.Errorf("expected %v, got %v", test.expected, d)
