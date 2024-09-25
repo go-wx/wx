@@ -3,15 +3,27 @@ package wx
 import "fmt"
 
 // VelocityType represents a unit of velocity.
-type velocityType int
+type velocityType uint8
 
 // Velocity units.
+// The values start at 1 to avoid a zero value if
+// a developer creates an invalid VelocityUnit.
+//
+// For example, if a developer creates a VelocityUnit
+// with a value of zero, the zero value would be
+// considered invalid.
+// Example:
+//
+//	var v VelocityUnit
+//	if !v.Valid() {
+//		// This will be true.
+//	}
 const (
-	fps velocityType = iota // feet per second
-	kts                     // knots
-	kph                     // kilometers per hour
-	mph                     // miles per hour
-	mps                     // meters per second
+	fps velocityType = iota + 1 // feet per second
+	kts                         // knots
+	kph                         // kilometers per hour
+	mph                         // miles per hour
+	mps                         // meters per second
 )
 
 // String returns the string representation of the velocity unit.
@@ -43,10 +55,15 @@ func (v VelocityUnit) String() string {
 
 // Velocity units.
 var (
+	// Fps is feet per second.
 	Fps = VelocityUnit{fps}
+	// Kts is knots.
 	Kts = VelocityUnit{kts}
+	// Kph is kilometers per hour.
 	Kph = VelocityUnit{kph}
+	// Mph is miles per hour.
 	Mph = VelocityUnit{mph}
+	// Mps is meters per second.
 	Mps = VelocityUnit{mps}
 )
 
@@ -71,10 +88,25 @@ func (v Velocity) Valid() bool {
 }
 
 // NewVelocity creates a new Velocity value.
-func NewVelocity(measurement float64, u VelocityUnit) Velocity {
+func NewVelocity(measurement float64, unit VelocityUnit) Velocity {
+	switch unit.velocityType {
+	case fps:
+		unit = Fps
+	case kts:
+		unit = Kts
+	case kph:
+		unit = Kph
+	case mph:
+		unit = Mph
+	case mps:
+		unit = Mps
+	default:
+		return Velocity{valid: false}
+	}
+
 	return Velocity{
 		measurement: measurement,
-		unit:        u,
+		unit:        unit,
 		valid:       measurement >= 0}
 }
 
@@ -84,30 +116,13 @@ func (v Velocity) Fps() float64 {
 	case fps:
 		return v.measurement
 	case kts:
-		return v.measurement * ktsToFps
+		return v.measurement * feetPerNauticalMile / 3600
 	case kph:
-		return v.measurement * kphToFps
+		return v.measurement * feetPerMeter * 1000 / 3600
 	case mph:
-		return v.measurement * mphToFps
+		return v.measurement * feetPerStatuteMile / 3600
 	case mps:
-		return v.measurement * mpsToFps
-	}
-	return 0
-}
-
-// Kts returns the velocity in knots.
-func (v Velocity) Kts() float64 {
-	switch v.unit.velocityType {
-	case fps:
-		return v.measurement / ktsToFps
-	case kts:
-		return v.measurement
-	case kph:
-		return v.measurement * kphToKts
-	case mph:
-		return v.measurement * mphToKts
-	case mps:
-		return v.measurement * mpsToKts
+		return v.measurement * feetPerMeter
 	}
 	return 0
 }
@@ -116,15 +131,32 @@ func (v Velocity) Kts() float64 {
 func (v Velocity) Kph() float64 {
 	switch v.unit.velocityType {
 	case fps:
-		return v.measurement / kphToFps
+		return v.measurement * feetPerMeter * 1000 / 3600
 	case kts:
-		return v.measurement / kphToKts
+		return v.measurement * feetPerNauticalMile / feetPerMeter / 1000
 	case kph:
 		return v.measurement
 	case mph:
-		return v.measurement * mphToKph
+		return v.measurement * feetPerStatuteMile / 3600 / feetPerMeter * 1000
 	case mps:
-		return v.measurement * mpsToKph
+		return v.measurement * 3600 / 1000
+	}
+	return 0
+}
+
+// Kts returns the velocity in knots.
+func (v Velocity) Kts() float64 {
+	switch v.unit.velocityType {
+	case fps:
+		return v.measurement * 3600 / feetPerNauticalMile
+	case kts:
+		return v.measurement
+	case kph:
+		return v.measurement * feetPerMeter * 1000 / feetPerNauticalMile
+	case mph:
+		return v.measurement * feetPerStatuteMile / feetPerNauticalMile
+	case mps:
+		return v.measurement * feetPerMeter / feetPerNauticalMile
 	}
 	return 0
 }
@@ -133,15 +165,15 @@ func (v Velocity) Kph() float64 {
 func (v Velocity) Mph() float64 {
 	switch v.unit.velocityType {
 	case fps:
-		return v.measurement / mphToFps
+		return v.measurement * 3600 / feetPerStatuteMile
 	case kts:
-		return v.measurement / mphToKts
+		return v.measurement * feetPerNauticalMile / feetPerStatuteMile
 	case kph:
-		return v.measurement / mphToKph
+		return v.measurement * feetPerMeter * 1000 / feetPerStatuteMile
 	case mph:
 		return v.measurement
 	case mps:
-		return v.measurement * mpsToMph
+		return v.measurement * feetPerMeter * 3600 / feetPerStatuteMile
 	}
 	return 0
 }
@@ -150,16 +182,17 @@ func (v Velocity) Mph() float64 {
 func (v Velocity) Mps() float64 {
 	switch v.unit.velocityType {
 	case fps:
-		return v.measurement / mpsToFps
+		return v.measurement / feetPerMeter
 	case kts:
-		return v.measurement / mpsToKts
+		return v.measurement * feetPerNauticalMile / feetPerMeter / 3600
 	case kph:
-		return v.measurement / mpsToKph
+		return v.measurement * 1000 / 3600
 	case mph:
-		return v.measurement / mpsToMph
+		return v.measurement * feetPerStatuteMile / feetPerMeter / 3600
 	case mps:
 		return v.measurement
 	}
+
 	return 0
 }
 
@@ -187,20 +220,3 @@ func (v Velocity) ToMph() Velocity {
 func (v Velocity) ToMps() Velocity {
 	return NewVelocity(v.Mps(), Mps)
 }
-
-// Constants for converting between velocity units.
-const (
-	ktsToFps = 1.68781
-	kphToFps = 0.911344
-	mphToFps = 1.46667
-	mpsToFps = 3.28084
-
-	kphToKts = 0.539957
-	mphToKts = 0.868976
-	mpsToKts = 1.94384
-
-	mphToKph = 1.60934
-	mpsToKph = 60 * 60 / 1000
-
-	mpsToMph = 2.23694
-)
